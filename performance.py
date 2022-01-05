@@ -108,6 +108,7 @@ dataset = get_dataset(batch_size)
 dataset_load_time = time.time() - dataset_load_time
 
 
+walltime_start = time.time()
 for i, (validation_ds, batch_labels, _) in enumerate(dataset):
     start_time = time.time()
     pred_prob_keras = model(validation_ds)
@@ -128,7 +129,7 @@ print('user_batch_size =', batch_size)
 print('accuracy =', acc_keras_gpu)
 print('model_load_time =', model_load_time)
 print('dataset_load_time =', dataset_load_time)
-print('prediction_time =', np.sum(iter_times))
-#results.loc['inference times(avg)']    = ['d']
-#results.loc['FPS']                     = ['d']
-#results.loc['FPS(inf)']                = ['d']
+print('wall_time =', time.time() - walltime_start)
+print('inference_time(avg) =', np.sum(iter_times)/len(iter_times))
+print('FPS =', 1000 / (model_load_time + dataset_load_time + (time.time() - walltime_start)))
+print('FPS(inf) =', 1000 / np.sum(iter_times))
