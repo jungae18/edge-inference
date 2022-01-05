@@ -118,7 +118,6 @@ for i, (validation_ds, batch_labels, _) in enumerate(dataset):
     pred_labels.extend(list(np.argmax(pred_prob_keras, axis=1)))
     
     if i*batch_size >= display_threshold:
-        print(f'Images {i*batch_size}/50000. Average i/s {np.mean(batch_size/np.array(iter_times[-display_every:]))}')
         display_threshold+=display_every
 
 iter_times = np.array(iter_times)
